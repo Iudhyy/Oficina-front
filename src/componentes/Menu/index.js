@@ -1,5 +1,6 @@
 import {FiUser,FiTruck,FiBriefcase,FiLayers,FiAnchor,FiPackage,FiTrendingUp,FiUserPlus,FiSlack,FiServer,FiShoppingCart,FiShoppingBag} from "react-icons/fi";
 import { GoFile,GoOrganization } from "react-icons/go";
+import { IoIosCar } from "react-icons/io";
 export default function Menu(){
     return(
         <div className="menu">
@@ -26,6 +27,8 @@ export default function Menu(){
 
             <a href="/listalotacao"><FiUserPlus/>Perfil</a>
 
+            <a href="/listalotacao"><IoIosCar/>Veiculos</a>
+            
             <a href="/listalotacao"><FiTrendingUp/>Relatorios</a>
 
 

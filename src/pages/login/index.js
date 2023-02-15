@@ -31,7 +31,7 @@ function Login() {
   return (
     <div className='tudo'>
         <section className="form">
-        <form onSubmit={logar}>
+        {/* <form onSubmit={logar}>
             <h1>Oficina</h1>
             <h1>Faça seu login</h1>
                 <input
@@ -46,15 +46,37 @@ function Login() {
                 <button className="button_login" type="submit">
                 Entrar
                 </button>
-        </form>
+        </form> */}
     </section>
-    <section className="div-imagem">
-        
-        
-    </section>
+    <div class="login-box">
+ 
+  <form onSubmit={logar}>
+    <div class="user-box">
+      <input  type="text"
+      value={email}
+      onChange={e=>setEmail(e.target.value)}/>
+      <label>Usuário</label>
+    </div>
+    <div class="user-box">
+      <input type="password"
+      value={senha}
+      onChange={e=>setSenha(e.target.value)}/>
+      <label>Senha</label>
+    </div><center>
+    <a href="#">
+           Entrar
+       <span></span>
+    </a></center>
+  </form>
+</div>
+  
     
     </div>
+
+    
   );
+
+ 
 }
 
 export default Login;
