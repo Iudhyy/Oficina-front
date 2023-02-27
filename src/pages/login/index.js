@@ -14,7 +14,7 @@ function Login() {
     function logar(e){
         e.preventDefault();
         let dadosnovos
-        let lista =JSON.parse(localStorage.getItem("cad-usuarios")||"[]");
+        let lista =JSON.parse(localStorage.getItem("cad-funcionario")||"[]");
     
         dadosnovos=lista.filter(item=>item.email==email && item.senha==senha);
     
@@ -55,18 +55,21 @@ function Login() {
       <input  type="text"
       value={email}
       onChange={e=>setEmail(e.target.value)}/>
-      <label>Usuário</label>
+      <label>Email</label>
     </div>
     <div class="user-box">
       <input type="password"
       value={senha}
       onChange={e=>setSenha(e.target.value)}/>
       <label>Senha</label>
-    </div><center>
-    <a href="#">
-           Entrar
-       <span></span>
-    </a></center>
+    </div>
+   
+    <button className="button_login" type="submit">
+        Entrar
+            </button>
+   
+   
+   
   </form>
 </div>
   

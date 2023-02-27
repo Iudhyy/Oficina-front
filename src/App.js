@@ -1,7 +1,8 @@
-import logo from './logo.svg';
+
 import './App.css';
 import Rotas from './rotas';
-import './global.css'
+import './global.css';
+
 function App() {
   return (
     <div className="App">
