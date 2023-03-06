@@ -2,7 +2,7 @@ import React,{useState,useEffect} from "react";
 import Head from "../../componentes/Head";
 import Menu from "../../componentes/Menu";
 import { useNavigate } from "react-router-dom";
-
+    
 export default function Cadastrofuncionario(){
     const navigate = useNavigate();
     const [nome,setNome] = useState("");
@@ -19,6 +19,14 @@ export default function Cadastrofuncionario(){
         return re.test(email);
        
     
+    }
+    function verificarduplicidade(email){
+        let dadosnovos = [];
+        dadosnovos = dados.filter(item=>item.email==email);
+        if(dadosnovos.length>0){
+            return true
+        }
+            return false;
     }
 
     useEffect(()=>{
@@ -50,7 +58,7 @@ export default function Cadastrofuncionario(){
             i++;
         }
         if(verificarduplicidade(email)==true){
-            errorMsg.push("o email fornecido ja esta cadastrado\n");
+            alert("o email fornecido ja esta cadastrado\n");
             i++;
         }
         if(email.length==0){
@@ -99,6 +107,7 @@ export default function Cadastrofuncionario(){
     <Menu />
     <div className="principal">
             <Head title="Cadastro de Funcionário" />
+            
             {/* <section className="form-cadastro">  */}
                 {/* <form onSubmit={salvardados}> */}
                     {/* <label>Nome</label> */}

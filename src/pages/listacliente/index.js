@@ -72,6 +72,7 @@ export default function Listacliente(){
                       <th>Email</th>
                       <th>Contato</th>
                       <th>Veiculo</th>
+                      <th>Placa</th>
                       <th></th>
                   </tr>
                   {
@@ -84,6 +85,7 @@ export default function Listacliente(){
                                   <td>{usu.email}</td>
                                   <td>{usu.contato}</td>
                                   <td>{usu.veiculo}</td>
+                                  <td>{usu.placa}</td>
 
                                   <td>
                                     
@@ -108,8 +110,8 @@ export default function Listacliente(){
                       })
                   }
                   <tr>
-                    <td colSpan={4} style={{textAlign:"right",fontWeight:"bold"}}>Total</td>
-                    <td colSpan={3}> {row} </td>
+                    <td colSpan={7} style={{textAlign:"right",fontWeight:"bold"}}>Total</td>
+                    <td colSpan={5}> {row} </td>
                   </tr>
   
               </table>

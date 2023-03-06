@@ -157,7 +157,7 @@ form input{
 /* } */
 
 .button_save{
-  bottom: 30%;
+  bottom: 70%;
 }
 .button_save:hover{
     filter:brightness(90%);
@@ -278,10 +278,10 @@ h1{
 
 .login-box2 {
     position: absolute;
-    top: 40%;
+    top: 45%;
     left: 60%;
     width: 800px;
-    height: 550px;
+    height: 650px;
     padding: 40px;
     transform: translate(-50%, -50%);
     background: rgba(24, 20, 20, 0.987);
@@ -293,7 +293,7 @@ h1{
   .login-box2 .user-box2 {
     position: relative;
     padding: 0px;
-    bottom: 70%;
+    bottom: 90%;
   }
   
   .login-box2 .user-box2 input {
@@ -307,6 +307,7 @@ h1{
     outline: none;
     background: transparent;
     height: 100%;
+    
 
   }
   
@@ -453,6 +454,7 @@ button {
   z-index: 1;
   font-family: inherit;
   color: #17C3B2;
+  
  }
  
  button::before {

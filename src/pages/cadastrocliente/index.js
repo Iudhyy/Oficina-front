@@ -12,6 +12,7 @@ export default function CadastroCliente(){
     const [confirmar,setConfirmar] = useState("");
     const [contato,setContato] = useState("");
     const [veiculo,setVeiculo] = useState("");
+    const [placa,setPlaca] = useState("");
     const [msg,setMsg] = useState("");
     const [dados,setDados]=useState([]);
     
@@ -87,11 +88,12 @@ export default function CadastroCliente(){
                 {
                     id:Date.now().toString(36)+Math.floor(Math.pow(10,12)+Math.random()*9*Math.pow(10,12)).toString(36),
                     nome:nome,
+                    cpf:cpf,
                     email:email,
                     senha:senha,
                     contato:contato,
                     veiculo:veiculo,
-                    cpf:cpf
+                    placa:placa
                 }
             )
             localStorage.setItem("cad-cliente",JSON.stringify(lista));
@@ -188,6 +190,12 @@ export default function CadastroCliente(){
   value={veiculo}
   onChange={e=>setVeiculo(e.target.value)}/>
  <label>Veiculo</label>
+ </div>
+ <div class="user-box2">
+ <input  type="text"
+  value={placa}
+  onChange={e=>setPlaca(e.target.value)}/>
+ <label>Placa</label>
  </div>
  
 

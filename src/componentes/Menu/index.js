@@ -1,9 +1,11 @@
 import {FiUser,FiTruck,FiBriefcase,FiLayers,FiAnchor,FiPackage,FiTrendingUp,FiUserPlus,FiSlack,FiServer,FiShoppingCart,FiShoppingBag} from "react-icons/fi";
 import { GoFile,GoOrganization } from "react-icons/go";
 import { IoIosCar } from "react-icons/io";
-
 export default function Menu(){
+
     return(
+     
+
         <div className="menu">
             <p> Menu</p>
             <a className="btn" href="/listafuncionario"><GoOrganization/>Funcionários</a>
