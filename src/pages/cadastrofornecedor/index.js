@@ -17,8 +17,8 @@ export default function CadastroFornecedor(){
     
 
     // function validaremail(){
-    //     var re = /\S+@\S+\.\S+/;
-    //     return re.test(email);
+        // var re = /\S+@\S+\.\S+/;
+        // return re.test(email);
        
     
     // } 
@@ -31,14 +31,14 @@ export default function CadastroFornecedor(){
     setDados(lista);
     }
 
-    // function verificarduplicidade(email){
-    //     let dadosnovos = [];
-    //     dadosnovos = dados.filter(item=>item.email==email);
-    //     if(dadosnovos.length>0){
-    //         return true
-    //     }
-    //         return false;
-    // }
+    function verificarduplicidade(email){
+        let dadosnovos = [];
+        dadosnovos = dados.filter(item=>item.email==email);
+        if(dadosnovos.length>0){
+            return true
+        }
+            return false;
+    }
 
     
 

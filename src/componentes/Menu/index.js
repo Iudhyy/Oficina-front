@@ -14,7 +14,7 @@ export default function Menu(){
 
             <a className="btn" href="/listafornecedor"><FiTruck/>Fornecedor</a>
 
-            <a className="btn" href="/listapatrimonio"><FiPackage/>Produto</a>
+            <a className="btn" href="/listaproduto"><FiPackage/>Produto</a>
 
             <a className="btn" href="/listasetor"><FiLayers/>Setor</a>
 

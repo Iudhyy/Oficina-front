@@ -11,6 +11,8 @@ import ListaFornecedor from "./pages/listafornecedor";
 import CadastroFornecedor from "./pages/cadastrofornecedor";
 import EditarFornecedor from "./pages/editarfornecedor";
 import CadastroCliente from "./pages/cadastrocliente";
+import EditarCliente from "./pages/editarcliente";
+import ListaProduto from "./pages/listaproduto";
 
 
 
@@ -33,11 +35,15 @@ export default function Rotas(){
 
             <Route path="/editarfuncionario/:id" element={<Editarfuncionario/>} />
 
+            <Route path="/editarcliente/:id" element={<EditarCliente/>} />
+
             <Route path="/editarfornecedor/:id" element={<EditarFornecedor/>} />
 
             <Route path="/cadastrofornecedor" element={<CadastroFornecedor/>} />
 
             <Route path="/listafuncionario" element={<Funcionario/>} />
+
+            <Route path="/listaproduto" element={<ListaProduto/>} />
 
             <Route path="/listafornecedor" element={<ListaFornecedor/>} />
             </Routes>

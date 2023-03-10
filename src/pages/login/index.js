@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../../global.css';
 
 
 
@@ -30,7 +31,11 @@ function Login() {
     
   return (
     <div className='tudo'>
+      <div className='topo'></div>
         <section className="form">
+        <div className='topo'>
+          <p className='texto-colorido'>Ola seja bem vindo! :)</p>
+        </div>
         {/* <form onSubmit={logar}>
             <h1>Oficina</h1>
             <h1>Faça seu login</h1>
@@ -49,7 +54,7 @@ function Login() {
         </form> */}
     </section>
     <div class="login-box">
- 
+        
   <form onSubmit={logar}>
     <div class="user-box">
       <input  type="text"
