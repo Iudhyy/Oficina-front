@@ -36,26 +36,12 @@ function Login() {
         <div className='topo'>
           <p className='texto-colorido'>Ola seja bem vindo! :)</p>
         </div>
-        {/* <form onSubmit={logar}>
-            <h1>Oficina</h1>
-            <h1>Faça seu login</h1>
-                <input
-                value={email}
-                onChange={e=>setEmail(e.target.value)}
-                placeholder="Email"
-                />
-                <input placeholder="senha" type="password"
-                     value={senha}
-                     onChange={e=>setSenha(e.target.value)}
-                />
-                <button className="button_login" type="submit">
-                Entrar
-                </button>
-        </form> */}
     </section>
     <div class="login-box">
+      
         
   <form onSubmit={logar}>
+    
     <div class="user-box">
       <input  type="text"
       value={email}

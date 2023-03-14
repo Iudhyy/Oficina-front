@@ -464,6 +464,7 @@ button {
   z-index: 1;
   font-family: inherit;
   color: #17C3B2;
+  border-radius: 10px;
   
  }
  
@@ -506,6 +507,5 @@ button {
     background-position: 400%;
   }
 }
- 
 
  
