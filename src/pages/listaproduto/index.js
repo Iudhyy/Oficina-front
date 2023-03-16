@@ -1,36 +1,91 @@
-import { useState } from "react"
-import Modal from "react-modal";
+import React, {useState,useEffect} from "react";
 import Head from "../../componentes/Head";
 import Menu from "../../componentes/Menu";
+import {FiEdit,FiDelete,FiFilePlus,FiTrash2} from "react-icons/fi";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { useNavigate,Link} from "react-router-dom";
 import api from "../../server/api";
 
+
 export default function ListaProduto(){
+  const navigate=useNavigate();
+    const [dados,setDados]=useState([]);
+    const [row,setRow] = useState(0);
+    const [page, setPage] = useState(1);
+    const [perPage, setPerPage] = useState(10); // Definindo o valor padrão como 10
+  
 
-   const [ dados, setDados] = useState("");
-        function listarproduto(){
-         api.get('/produto')
-         .then(res => {
-           if(res.status==200){
-               setDados(res.data.produto);
-               console.log("Status"+res.status);
-               console.log(res.data.mensagem);
-           }else{
-               console.log("houve um erro na requisição")
-           }
+    useEffect(() => {
+        mostrardados(page);
+      }, [page, perPage]);
 
-         })  
-         .catch(function (error) {
-           console.log(error);
-         });
+    function editar(id){
+        navigate(`/editarproduto/${id}`)
+        
+    }
+    
+    function excluir(i,nome) {
+       
+        confirmAlert({
+            title: 'Excluir Produto',
+            message: `Deseja realmente excluir o cadastro de ${nome}`,
+            buttons: [
+              {
+                label: 'Sim',
+                onClick: () => {
+                    api.delete(`/produto/${i}`)
+                    .then(res => {});
+                    mostrardados();
+                    alert("Dados Deletados com Sucesso!");
+                }
+              },
+              {
+                label: 'Não',
+                onClick: () => alert('Click No')
+              }
+            ]
+          })
+      };
+      async function mostrardados(page) {
+        try {
+          const response = await fetch(`http://10.1.2.106:5000/produto?page=${page}&perPage=${perPage}`, {
+            headers: {
+              'Content-Type': 'application/json; charset=utf-8'
+            }
+          });
+          if (response.ok) {
+            const data = await response.json();
+            setDados(data.produto);
+            setRow(data.totalRows);
+            console.log("Status" + response.status);
+            console.log(data.mensagem);
+          } else {
+            console.log("houve um erro na requisição")
+          }
+        } catch (error) {
+          console.log(error);
         }
+      }
+      function handlePageChange(newPage) {
+        setPage(newPage);
+      }
 
- return(
+return(
 <div className="dashboard-container">
     <Menu />
+
     <div className="principal">
-    <Head title="estou na lista de produtos" />
-    <h1>lista de produtos</h1>
-      <div className="div-produtos">
+    <Head title="Lista de Produto" />
+      <div className="button_new">
+       <a href="/cadastroproduto">
+       <FiFilePlus
+          size={24}
+          color="green"
+          cursor="pointer"
+        />
+       </a>
+      </div>
          <table>
             <tr>
                <th>ID</th>
@@ -39,17 +94,61 @@ export default function ListaProduto(){
                <th>Unidade</th>
                <th>Categoria</th>
             </tr>
-            <tr>
-               <td></td>
-            </tr>
-            
-         </table>
-       
-       
-      </div>
- 
- </div>
+           
+                {
+                    dados.map((pro)=>{
+                        return(
+                            <tr key={pro.toString()}>
+                                <td>{pro.id_produto}</td>
+                                <td>{pro.nome_produto}</td>
+                                <td>{pro.qtd_minima}</td>
+                                <td>{pro.unidade}</td>
+                                <td>{pro.categoria}</td>
+                                <td>
+                                  
+                                    <FiEdit
+                                    color="blue"
+                                    size={18}
+                                    cursor="pointer"
+                                    onClick={(e)=>editar(pro.id_produto)}
+                                    />
+                                </td>
+                                <td>
+                                <FiTrash2
+                                    color="red"
+                                    size={18}
+                                    cursor="pointer"
+                                    onClick={(e)=>excluir(pro.id_produto)}
+                                    />
+                                </td>
+
+                            </tr>
+                        )
+                    })
+                }
+                <tr>
+                <button
+  onClick={() => handlePageChange(page - 1)}
+  disabled={page === 1}
+>
+  Anterior
+</button>
+<button
+  onClick={() => handlePageChange(page + 1)}
+  disabled={page === row}
+>
+  Próximo
+</button>
+                </tr>
+                <tr>
+                  <td colSpan={3} style={{textAlign:"right",fontWeight:"bold"}}>Total</td>
+                  <td colSpan={2}> {row} </td>
+                </tr>
+
+            </table>
     </div>
+    
+</div>
 
  )   
-}
+            }
