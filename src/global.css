@@ -50,6 +50,7 @@ select{
 table{
     font:400 14px 'Roboto', sans-serif;
     margin: 0 auto;
+    width: 90%;
 }
 th, td{
     border-bottom:1px solid #96d4d4;
@@ -393,7 +394,12 @@ h1{
 
 
 
+/* botoes de prox e ant */
+.botoes{
+  /* margin: 0 auto; */
+  padding: 10px;
 
+}
 
 
 

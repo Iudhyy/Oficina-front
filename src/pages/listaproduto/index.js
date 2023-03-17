@@ -93,6 +93,8 @@ return(
                <th>Estoque Min.</th>
                <th>Unidade</th>
                <th>Categoria</th>
+               <th></th>
+               <th></th>
             </tr>
            
                 {
@@ -104,6 +106,8 @@ return(
                                 <td>{pro.qtd_minima}</td>
                                 <td>{pro.unidade}</td>
                                 <td>{pro.categoria}</td>
+                              
+
                                 <td>
                                   
                                     <FiEdit
@@ -126,26 +130,43 @@ return(
                         )
                     })
                 }
+                {/* <tr> */}
+                {/* <button */}
+                  {/* //  onClick={() => handlePageChange(page - 1)} */}
+                    {/* //  disabled={page === 1} */}
+                          {/* // > */}
+                             {/* Anterior */}
+                              {/* </button> */}
+                    {/* <button */}
+                      {/* // onClick={() => handlePageChange(page + 1)} */}
+                      {/* // disabled={page === row} */}
+                    {/* // > */}
+                      {/* Próximo */}
+                    {/* </button> */}
+                                    {/* </tr> */}
                 <tr>
-                <button
-  onClick={() => handlePageChange(page - 1)}
-  disabled={page === 1}
->
-  Anterior
-</button>
-<button
-  onClick={() => handlePageChange(page + 1)}
-  disabled={page === row}
->
-  Próximo
-</button>
-                </tr>
-                <tr>
-                  <td colSpan={3} style={{textAlign:"right",fontWeight:"bold"}}>Total</td>
+                  <td colSpan={5} style={{textAlign:"right",fontWeight:"bold"}}>Total </td>
                   <td colSpan={2}> {row} </td>
                 </tr>
 
             </table>
+
+            <div className="botoes">
+       
+ <button
+    onClick={() => handlePageChange(page - 1)}
+      disabled={page === 1}
+           >
+              Anterior
+               </button>
+     <button
+       onClick={() => handlePageChange(page + 1)}
+       disabled={page === row}
+     >
+       Próximo
+     </button>
+              
+            </div>
     </div>
     
 </div>

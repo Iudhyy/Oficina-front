@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { resolvePath, useNavigate } from 'react-router-dom';
 import '../../global.css';
 
 
@@ -11,23 +11,47 @@ function Login() {
     const [email,setEmail] =useState("");
     const [senha,setSenha] =useState("");
     const navigate=useNavigate();
-
-    function logar(e){
-        e.preventDefault();
-        let dadosnovos
-        let lista =JSON.parse(localStorage.getItem("cad-funcionario")||"[]");
-    
-        dadosnovos=lista.filter(item=>item.email==email && item.senha==senha);
-    
-        if(dadosnovos.length>0){
-            navigate("/dashboard");
-        }
-        else{
-            alert("email ou senha invalidos")
-        }
-        
-        
+    let _data = {
+      email: email,
+      senha: senha, 
     }
+    async function logar(e){
+      e.preventDefault();
+      try {
+        const response = await fetch(`http://10.1.2.106:5000/usuario/logar`, {
+          method: "POST",
+          body: JSON.stringify(_data),
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+          }
+        });
+        if (response.ok) {
+          const resposta = await response.json();
+
+          console.log(resposta.usuario[0].login);
+       
+          let session=
+          {
+              nome:resposta.usuario[0].nome,
+              email:resposta.usuario[0].email,
+              id_usuario:resposta.usuario[0].id_usuario
+          }
+         
+          //aqui setamos a chave na sessionStorage
+          sessionStorage.setItem("session",JSON.stringify(session))
+          window.location.href="/dashboard"
+
+                     
+        } else {
+          console.log("E-mail ou senha inválidos")
+          console.log(_data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }             
+        
+    
     
   return (
     <div className='tudo'>
