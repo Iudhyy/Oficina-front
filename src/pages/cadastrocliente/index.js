@@ -16,14 +16,13 @@ export default function CadastroCliente(){
     const [msg,setMsg] = useState("");
     const [dados,setDados]=useState([]);
     
-    
-
     function validaremail(){
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
        
     
     }
+
 
     useEffect(()=>{
         mostrardados();
@@ -44,9 +43,19 @@ export default function CadastroCliente(){
 
     
 
-    function salvardados(e){
+  async  function salvardados(e){
 
         e.preventDefault();
+           
+   const cliente = {
+    nome:nome,
+    cpf:cpf,
+    email:email,
+    senha:senha,
+    contato:contato,
+    veiculo:veiculo,
+    placa:placa
+}
         let i=0;
         let errorMsg=[];
         if(nome.length<3){
@@ -82,27 +91,33 @@ export default function CadastroCliente(){
 
         if(i==0){
             
-            setMsg("");
-            let lista = JSON.parse(localStorage.getItem("cad-cliente")||"[]");
-            lista.push(
-                {
-                    id:Date.now().toString(36)+Math.floor(Math.pow(10,12)+Math.random()*9*Math.pow(10,12)).toString(36),
-                    nome:nome,
-                    cpf:cpf,
-                    email:email,
-                    senha:senha,
-                    contato:contato,
-                    veiculo:veiculo,
-                    placa:placa
+           
+                try {
+                  const response = await fetch(`http://10.1.2.106:5000/cliente`, {
+                    method: "POST",
+                    body: JSON.stringify(cliente),
+                    headers: {
+                      'Content-Type': 'application/json; charset=utf-8'
+                    }
+                  });
+                  if (response.ok) {
+                    alert("dados salvos com sucesso!");
+                
+                    window.location.href="/listacliente"
+                  } else {
+                    console.log("dados inválidos!!!!")
+                   
+                  }
+                } catch (error) {
+                  console.log(error);
                 }
-            )
-            localStorage.setItem("cad-cliente",JSON.stringify(lista));
-            alert("dados salvos com sucesso!");
-            navigate("/listacliente");
-        }
-
+                            
+           
+            }
          else{
+             alert("Preencha todos os campos!!!")
             setMsg(errorMsg);
+            setMsg("");
         }
         
     }

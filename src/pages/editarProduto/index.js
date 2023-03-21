@@ -1,13 +1,13 @@
 import React,{useState,useEffect} from "react";
 import Head from "../../componentes/Head";
 import Menu from "../../componentes/Menu";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { setAppElement } from "react-modal";
 
 export default function EditarProduto(){
     const {id} =useParams();
     const navigate = useNavigate();
-    const[id,setId] = useState("");
+    // const[id,setId] = useState("");
     const [nome_produto,setNome_produto] = useState("");
     const [codigo,setCodigo] = useState("");
     const [qtd_minima,setQtd_minima] = useState("");
@@ -37,7 +37,7 @@ export default function EditarProduto(){
     useEffect(()=>{
         mostrardados();
     },[])
-    function mostrardados(){
+   async function mostrardados(){
         try {
             const response = await fetch(`http://10.1.2.106:5000/produto/${id}`, {
               method: "GET",

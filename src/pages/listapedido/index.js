@@ -8,7 +8,7 @@ import { useNavigate,Link} from "react-router-dom";
 import api from "../../server/api";
 
 
-export default function ListaFornecedor(){
+export default function ListaPedido(){
   const navigate=useNavigate();
     const [dados,setDados]=useState([]);
     const [row,setRow] = useState(0);
@@ -21,20 +21,20 @@ export default function ListaFornecedor(){
       }, [page, perPage]);
 
     function editar(id){
-        navigate(`/editarfornecedor/${id}`)
+        navigate(`/editarpedido/${id}`)
         
     }
     
     function excluir(i,nome) {
        
         confirmAlert({
-            title: 'Excluir fornecedor',
+            title: 'Excluir pedido',
             message: `Deseja realmente excluir o cadastro de ${nome}`,
             buttons: [
               {
                 label: 'Sim',
                 onClick: () => {
-                    api.delete(`/empresa/${i}`)
+                    api.delete(`/usuario/${i}`)
                     .then(res => {});
                     mostrardados();
                     alert("Dados Deletados com Sucesso!");
@@ -49,14 +49,14 @@ export default function ListaFornecedor(){
       };
       async function mostrardados(page) {
         try {
-          const response = await fetch(`http://10.1.2.106:5000/empresa?page=${page}&perPage=${perPage}`, {
+          const response = await fetch(`http://10.1.2.106:5000/pedido?page=${page}&perPage=${perPage}`, {
             headers: {
               'Content-Type': 'application/json; charset=utf-8'
             }
           });
           if (response.ok) {
             const data = await response.json();
-            setDados(data.empresa);
+            setDados(data.pedido);
             setRow(data.totalRows);
             console.log("Status" + response.status);
             console.log(data.mensagem);
@@ -76,9 +76,9 @@ return(
     <Menu />
 
     <div className="principal">
-    <Head title="Lista de Fornecedor" />
+    <Head title="Lista de Pedidos" />
       <div className="button_new">
-       <a href="/cadastrofornecedor">
+       <a href="/cadastropedido">
        <FiFilePlus
           size={24}
           color="green"
@@ -89,24 +89,27 @@ return(
          <table>
             <tr>
                <th>ID</th>
-               <th>CNPJ</th>
-               <th>Razão Social</th>
-               <th>telefone</th>
-               <th>ativo</th>
+               <th>quantidade pedida</th>
+               <th>Usuario</th>
+               <th>cod produto</th>
+               <th>data pedido</th>
+               <th>obs</th>
+               <th>flag baixa</th>
                <th></th>
                <th></th>
             </tr>
            
                 {
-                    dados.map((emp)=>{
+                    dados.map((ped)=>{
                         return(
-                            <tr key={emp.toString()}>
-                               <td>{emp.id_fornecedor}</td>
-                                <td>{emp.cnpj}</td>
-                                <td>{emp.razao_social}</td>
-                                <td>{emp.telefone}</td>
-                                <td>{emp.ativo}</td>
-                              
+                            <tr key={ped.toString()}>
+                               <td>{ped.cod_pedido}</td>
+                                <td>{ped.quantidade_pedida}</td>
+                                <td>{ped.id_usuario}</td>
+                                <td>{ped.cod_produto}</td>
+                                <td>{ped.data_pedido}</td>
+                                <td>{ped.obs}</td>
+                                <td>{ped.flag_baixa}</td>
 
                                 <td>
                                   
@@ -114,7 +117,7 @@ return(
                                     color="blue"
                                     size={18}
                                     cursor="pointer"
-                                    onClick={(e)=>editar(emp.id_fornecedor)}
+                                    onClick={(e)=>editar(ped.cod_pedido)}
                                     />
                                 </td>
                                 <td>
@@ -122,7 +125,7 @@ return(
                                     color="red"
                                     size={18}
                                     cursor="pointer"
-                                    onClick={(e)=>excluir(emp.id_fornecedor)}
+                                    onClick={(e)=>excluir(ped.cod_pedido)}
                                     />
                                 </td>
 

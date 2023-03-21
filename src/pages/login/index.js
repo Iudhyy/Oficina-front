@@ -8,8 +8,8 @@ import '../../global.css';
 function Login() {
     
     const [dados,setDados]=useState([]);
-    const [email,setEmail] =useState("");
-    const [senha,setSenha] =useState("");
+    const [email,setEmail] =useState("a@gmail.com");
+    const [senha,setSenha] =useState("123");
     const navigate=useNavigate();
     let _data = {
       email: email,

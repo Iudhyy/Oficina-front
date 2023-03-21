@@ -8,7 +8,7 @@ import { useNavigate,Link} from "react-router-dom";
 import api from "../../server/api";
 
 
-export default function ListaFornecedor(){
+export default function ListaEstoque(){
   const navigate=useNavigate();
     const [dados,setDados]=useState([]);
     const [row,setRow] = useState(0);
@@ -21,20 +21,20 @@ export default function ListaFornecedor(){
       }, [page, perPage]);
 
     function editar(id){
-        navigate(`/editarfornecedor/${id}`)
+        navigate(`/editarestoque/${id}`)
         
     }
     
     function excluir(i,nome) {
        
         confirmAlert({
-            title: 'Excluir fornecedor',
+            title: 'Excluir estoque',
             message: `Deseja realmente excluir o cadastro de ${nome}`,
             buttons: [
               {
                 label: 'Sim',
                 onClick: () => {
-                    api.delete(`/empresa/${i}`)
+                    api.delete(`/estoque/${i}`)
                     .then(res => {});
                     mostrardados();
                     alert("Dados Deletados com Sucesso!");
@@ -49,14 +49,14 @@ export default function ListaFornecedor(){
       };
       async function mostrardados(page) {
         try {
-          const response = await fetch(`http://10.1.2.106:5000/empresa?page=${page}&perPage=${perPage}`, {
+          const response = await fetch(`http://10.1.2.106:5000/estoque?page=${page}&perPage=${perPage}`, {
             headers: {
               'Content-Type': 'application/json; charset=utf-8'
             }
           });
           if (response.ok) {
             const data = await response.json();
-            setDados(data.empresa);
+            setDados(data.estoque);
             setRow(data.totalRows);
             console.log("Status" + response.status);
             console.log(data.mensagem);
@@ -76,9 +76,9 @@ return(
     <Menu />
 
     <div className="principal">
-    <Head title="Lista de Fornecedor" />
+    <Head title="Lista de Estoque" />
       <div className="button_new">
-       <a href="/cadastrofornecedor">
+       <a href="/cadastrofuncionario">
        <FiFilePlus
           size={24}
           color="green"
@@ -89,23 +89,18 @@ return(
          <table>
             <tr>
                <th>ID</th>
-               <th>CNPJ</th>
-               <th>Razão Social</th>
-               <th>telefone</th>
-               <th>ativo</th>
+               <th>Login</th>
                <th></th>
                <th></th>
             </tr>
            
                 {
-                    dados.map((emp)=>{
+                    dados.map((est)=>{
                         return(
-                            <tr key={emp.toString()}>
-                               <td>{emp.id_fornecedor}</td>
-                                <td>{emp.cnpj}</td>
-                                <td>{emp.razao_social}</td>
-                                <td>{emp.telefone}</td>
-                                <td>{emp.ativo}</td>
+                            <tr key={est.toString()}>
+                               <td>{est.id_estoque}</td>
+                                <td>{est.quantidade}</td>
+                                <td>{est.produto}</td>
                               
 
                                 <td>
@@ -114,7 +109,7 @@ return(
                                     color="blue"
                                     size={18}
                                     cursor="pointer"
-                                    onClick={(e)=>editar(emp.id_fornecedor)}
+                                    onClick={(e)=>editar(est.id_estoque)}
                                     />
                                 </td>
                                 <td>
@@ -122,7 +117,7 @@ return(
                                     color="red"
                                     size={18}
                                     cursor="pointer"
-                                    onClick={(e)=>excluir(emp.id_fornecedor)}
+                                    onClick={(e)=>excluir(est.id_estoque)}
                                     />
                                 </td>
 

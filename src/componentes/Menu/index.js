@@ -17,16 +17,16 @@ export default function Menu(){
             <a className="btn" href="/listaproduto"><FiPackage/>Produto</a>
 
             <a className="btn" href="/listasetor"><FiLayers/>Setor</a>
+            
+            <a className="btn" href="/listapedido"><FiSlack/>Pedido</a>
 
-            <a className="btn" href="/listalotacao"><FiSlack/>Pedido</a>
-
-            <a className="btn" href="/listalotacao"><FiServer/>Estoque</a>
+            <a className="btn" href="/listaestoque"><FiServer/>Estoque</a>
 
             <a className="btn" href="/listalotacao"><FiShoppingCart/>Itens</a>
 
             <a className="btn" href="/listalotacao"><FiShoppingBag/>Item Pedido</a>
 
-            <a className="btn" href="/listalotacao"><GoFile/>Nota</a>
+            <a className="btn" href="/listanota"><GoFile/>Nota</a>
 
             <a className="btn" href="/listalotacao"><FiUserPlus/>Perfil</a>
 
