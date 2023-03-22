@@ -8,27 +8,27 @@ import '../../global.css';
 function Login() {
     
     const [dados,setDados]=useState([]);
-    const [email,setEmail] =useState("a@gmail.com");
-    const [senha,setSenha] =useState("123");
+    const [email,setEmail] =useState("");
+    const [senha,setSenha] =useState("");
     const navigate=useNavigate();
     let _data = {
       email: email,
       senha: senha, 
     }
-    async function logar(e){
+async function logar(e){
       e.preventDefault();
-      try {
-        const response = await fetch(`http://10.1.2.106:5000/usuario/logar`, {
-          method: "POST",
-          body: JSON.stringify(_data),
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8'
+        try {
+              const response = await fetch(`http://10.1.2.106:5000/usuario/logar`, {
+            method: "POST",
+            body: JSON.stringify(_data),
+            headers: {
+              'Content-Type': 'application/json; charset=utf-8'
           }
         });
-        if (response.ok) {
+        if (response.status==200) {
           const resposta = await response.json();
 
-          console.log(resposta.usuario[0].login);
+          console.log(resposta);
        
           let session=
           {
