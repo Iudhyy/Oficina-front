@@ -78,7 +78,7 @@ return(
     <div className="principal">
     <Head title="Lista de Estoque" />
       <div className="button_new">
-       <a href="/cadastrofuncionario">
+       <a href="/cadastroestoque">
        <FiFilePlus
           size={24}
           color="green"
@@ -89,7 +89,8 @@ return(
          <table>
             <tr>
                <th>ID</th>
-               <th>Login</th>
+               <th>quantidade</th>
+               <th>produto</th>
                <th></th>
                <th></th>
             </tr>
@@ -125,20 +126,6 @@ return(
                         )
                     })
                 }
-                {/* <tr> */}
-                {/* <button */}
-                  {/* //  onClick={() => handlePageChange(page - 1)} */}
-                    {/* //  disabled={page === 1} */}
-                          {/* // > */}
-                             {/* Anterior */}
-                              {/* </button> */}
-                    {/* <button */}
-                      {/* // onClick={() => handlePageChange(page + 1)} */}
-                      {/* // disabled={page === row} */}
-                    {/* // > */}
-                      {/* Próximo */}
-                    {/* </button> */}
-                                    {/* </tr> */}
                 <tr>
                   <td colSpan={5} style={{textAlign:"right",fontWeight:"bold"}}>Total </td>
                   <td colSpan={2}> {row} </td>

@@ -15,7 +15,6 @@ import EditarCliente from "./pages/editarcliente";
 import ListaProduto from "./pages/listaproduto";
 import CadastroProduto from "./pages/cadastroproduto";
 import EditarProduto from "./pages/editarProduto";
-// import ListaFuncionario from "./pages/listafuncionario";
 import ListaUsuario from "./pages/listafuncionario";
 import ListaSetor from "./pages/listasetor";
 import ListaPedido from "./pages/listapedido";
@@ -45,8 +44,6 @@ export default function Rotas(){
             <Route path="/listanota" element={<ListaNota/>} />
             
             <Route path="/listaestoque" element={<ListaEstoque/>} />
-
-         
 
             <Route path="/cadastrofuncionario" element={<Cadastrofuncionario/>} />
 
