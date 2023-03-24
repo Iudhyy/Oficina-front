@@ -20,6 +20,12 @@ import ListaSetor from "./pages/listasetor";
 import ListaPedido from "./pages/listapedido";
 import ListaNota from "./pages/listanota";
 import ListaEstoque from "./pages/listaestoque";
+import EditarFuncionario from "./pages/editarfuncionario";
+
+import EditarPedido from "./pages/editarpedido";
+import EditarSetor from "./pages/editarsetor";
+import CadastroPedido from "./pages/cadastropedido";
+import CadastroSetor from "./pages/cadastrosetor";
 
 
 
@@ -49,15 +55,23 @@ export default function Rotas(){
 
             <Route path="/cadastroproduto" element={<CadastroProduto/>} />
 
+            <Route path="/cadastropedido" element={<CadastroPedido/>} />
+            
+            <Route path="/cadastrosetor" element={<CadastroSetor/>} />
+
             <Route path="/cadastrocliente" element={<CadastroCliente/>} />
 
-            <Route path="/editarfuncionario/:id" element={<Editarfuncionario/>} />
-
             <Route path="/editarproduto/:id" element={<EditarProduto/>} />
+
+            <Route path="/editarfuncionario/:id" element={<EditarFuncionario/>} />
 
             <Route path="/editarcliente/:id" element={<EditarCliente/>} />
 
             <Route path="/editarfornecedor/:id" element={<EditarFornecedor/>} />
+            
+            <Route path="/editarpedido/:id" element={<EditarPedido/>} />
+
+            <Route path="/editarsetor/:id" element={<EditarSetor/>} />
 
             <Route path="/cadastrofornecedor" element={<CadastroFornecedor/>} />
 

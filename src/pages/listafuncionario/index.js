@@ -21,7 +21,7 @@ export default function ListaUsuario(){
       }, [page, perPage]);
 
     function editar(id){
-        navigate(`/editarusuario/${id}`)
+        navigate(`/editarfuncionario/${id}`)
         
     }
     
@@ -93,9 +93,6 @@ return(
                <th>Nome</th>
                <th>email</th>
                <th>senha</th>
-               <th>perfil</th>
-               <th>setor</th>
-               <th>ativo</th>
                <th></th>
                <th></th>
             </tr>
@@ -109,9 +106,9 @@ return(
                                 <td>{usu.nome}</td>
                                 <td>{usu.email}</td>
                                 <td>{usu.senha}</td>
-                                <td>{usu.perfil}</td>
-                                <td>{usu.setor}</td>
-                                <td>{usu.ativo}</td>
+                               
+                               
+                               
                               
 
                                 <td>

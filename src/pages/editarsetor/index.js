@@ -4,40 +4,18 @@ import Menu from "../../componentes/Menu";
 import { useNavigate, useParams } from "react-router-dom";
 import { setAppElement } from "react-modal";
 
-export default function EditarFuncionario(){
+export default function EditarSetor(){
     const {id} =useParams();
     const navigate = useNavigate();
-    const [id_usuario,setId_Usuario] = useState("");
-    const [login,setLogin] = useState("");
-    const [nome,setNome] = useState("");
-    const [email,setEmail] = useState("");
-    const [senha,setSenha] = useState("");
-    const [perfil,setPerfil] = useState(1);
-    const [setor,setSetor] = useState(3);
-    const [ativo,setAtivo] = useState("S")
+    const [nome_setor,setNome_Setor] = useState("");
     const [msg,setMsg] = useState("");
     // const [dados,setDados]=useState([]);
     // 
-    
-    const _data = {
 
-        id_usuario,
-        login,
-        nome,
-        email,
-        senha
 
-    }
-
-    const usuario = {
+    const setor = {
         id:id,
-        login:login,
-        nome:nome,
-        email:email,
-        senha:senha,
-        perfil:perfil,
-        setor:setor,
-        ativo:ativo
+        nome_setor:nome_setor      
     }
 
 
@@ -46,7 +24,7 @@ export default function EditarFuncionario(){
     },[])
    async function mostrardados(){
         try {
-            const response = await fetch(`http://10.1.2.106:5000/usuario/${id}`, {
+            const response = await fetch(`http://10.1.2.106:5000/setor/${id}`, {
               method: "GET",
               headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -54,10 +32,10 @@ export default function EditarFuncionario(){
             });
             if (response.ok) {
               const resposta = await response.json();
-              setLogin(resposta.usuario[0].login);
-              setNome(resposta.usuario[0].nome);
-              setEmail(resposta.usuario[0].email);
-              setSenha(resposta.usuario[0].senha);
+              
+              setNome_Setor(resposta.setor[0].nome_setor);
+             
+             
             }
         
            
@@ -85,30 +63,22 @@ export default function EditarFuncionario(){
 
          e.preventDefault();
         let i=0;
-        let errorMsg=[];
-        if(login.length<3){
-            errorMsg.push("Campo login tem menos de 3 caracteres\n");
-            i++;
-        }
-       
-       
-       
-       
-        if(nome.length<3){
+        let errorMsg=[];                    
+        if(nome_setor.length<3){
             errorMsg.push("Campo nome tem menos de 3 caracteres\n");
             i++;
         }
-        if(senha.length<4){
-            errorMsg.push("Campo email tem menos de 4 caracteres\n");
-            i++;
-        }
+      
+      
+      
+      
 
         if(i==0){
             
                 try {
-                  const response = await fetch(`http://10.1.2.106:5000/usuario`, {
+                  const response = await fetch(`http://10.1.2.106:5000/setor`, {
                     method: "PATCH",
-                    body: JSON.stringify(usuario),
+                    body: JSON.stringify(setor),
                     headers: {
                       'Content-Type': 'application/json; charset=utf-8'
                     }
@@ -116,7 +86,7 @@ export default function EditarFuncionario(){
                   if (response.ok) {
                     alert("dados salvos com sucesso!");
                 
-                    window.location.href="/listafuncionario"
+                    window.location.href="/listasetor"
 
                   } else {
                     console.log("E-mail ou senha inválidos")
@@ -139,40 +109,17 @@ export default function EditarFuncionario(){
 <div className="dashboard-container">
     <Menu />
     <div className="principal">
-            <Head title="Cadastro de Produto" />
+            <Head title="Editar Setor" />
 
             <div class="login-box2">
  
  <form onSubmit={salvardados}>
-
  <div class="user-box2">
-   <input type="text"
-   value={login}
-   onChange={e=>setLogin(e.target.value)}/>
-   <label>Login</label>
- </div>
-
-   <div class="user-box2">
-     <input type="text"
-     value={nome}
-     onChange={e=>setNome(e.target.value)}/>
-     <label>Nome</label>
-   </div>
-   <div class="user-box2">
-     <input  type="text"
-       value={email}
-       onChange={e=>setEmail(e.target.value)}/>
-     <label>Email</label>
-   </div>
-   
-   <div class="user-box2">
-  <input  type="password"
-  value={senha}
-  onChange={e=>setSenha(e.target.value)}/>
-  <label>Senha</label>
- </div>
-
-   
+         <input type="text"
+         value={nome_setor}
+         onChange={e=>setNome_Setor(e.target.value)}/>
+         <label>Nome</label>
+    </div>
  <button className="button_save" type="submit">
       Salvar
   </button>    

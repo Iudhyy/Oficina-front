@@ -22,19 +22,19 @@ export default function Menu(){
 
             <a className="btn" href="/listaestoque"><FiServer/>Estoque</a>
 
-            <a className="btn" href="/listalotacao"><FiShoppingCart/>Itens</a>
+            {/* <a className="btn" href="/listalotacao"><FiShoppingCart/>Itens</a> */}
 
-            <a className="btn" href="/listalotacao"><FiShoppingBag/>Item Pedido</a>
+            {/* <a className="btn" href="/listalotacao"><FiShoppingBag/>Item Pedido</a> */}
 
-            <a className="btn" href="/listanota"><GoFile/>Nota</a>
+            {/* <a className="btn" href="/listanota"><GoFile/>Nota</a> */}
 
-            <a className="btn" href="/listalotacao"><FiUserPlus/>Perfil</a>
+            {/* <a className="btn" href="/listalotacao"><FiUserPlus/>Perfil</a> */}
 
-            <a className="btn" href="/listalotacao"><IoIosCar/>Veiculos</a>
-            
-            <a className="btn" href="/listalotacao"><FiTrendingUp/>Relatorios</a>
+            {/* <a className="btn" href="/listalotacao"><IoIosCar/>Veiculos</a> */}
+{/*              */}
+            {/* <a className="btn" href="/listalotacao"><FiTrendingUp/>Relatorios</a> */}
 
-            
+{/*              */}
 
 
 
