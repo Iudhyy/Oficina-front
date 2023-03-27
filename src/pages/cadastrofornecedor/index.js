@@ -1,156 +1,145 @@
-import React,{useState,useEffect} from "react";
+import React, { useState } from "react";
 import Head from "../../componentes/Head";
 import Menu from "../../componentes/Menu";
 import { useNavigate } from "react-router-dom";
 
-export default function CadastroFornecedor(){
-    const navigate = useNavigate();
-    const[id,setId] = useState("");
-    const [nome,setNome] = useState("");
-    // const [email,setEmail] = useState("");
-    const [responsavel,setResponsavel] = useState("");
-    const [contato,setContato] = useState("");
-    // const [confirmar,setConfirmar] = useState("");
-    const [msg,setMsg] = useState("");
-    const [dados,setDados]=useState([]);
-    
-    
+export default function CadastroFornecedor() {
+  const navigate = useNavigate();
+  const [cnpj, setCnpj] = useState("");
+  const [razaoSocial, setRazaoSocial] = useState("");
+  const [responsavel, setResponsavel] = useState("");
+  const [endereco, setEndereco] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [estado, setEstado] = useState("");
+  const [email, setEmail] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [ativo, setAtivo] = useState(false);
+  const [msg, setMsg] = useState("");
 
-    // function validaremail(){
-        // var re = /\S+@\S+\.\S+/;
-        // return re.test(email);
-       
-    
-    // } 
+  async function salvarDados(e) {
+    e.preventDefault();
 
-    useEffect(()=>{
-        mostrardados();
-    },[])
-    function mostrardados(){
-    let lista =JSON.parse(localStorage.getItem("cad-fornecedor")||"[]");
-    setDados(lista);
+    const fornecedor = {
+      cnpj: cnpj,
+      razao_social: razaoSocial,
+      responsavel: responsavel,
+      endereco: endereco,
+      cidade: cidade,
+      estado: estado,
+      email: email,
+      telefone: telefone,
+      ativo: ativo,
+    };
+
+    // Validar os campos antes de enviar para o backend
+
+    try {
+      const response = await fetch(`http://seuservidor.com/fornecedor`, {
+        method: "POST",
+        body: JSON.stringify(fornecedor),
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+      });
+      if (response.ok) {
+        alert("Dados salvos com sucesso!");
+        navigate("/lista-fornecedores");
+      } else {
+        console.log("Dados inválidos!!!");
+      }
+    } catch (error) {
+      console.log(error);
     }
+  }
 
-    function verificarduplicidade(email){
-        let dadosnovos = [];
-        dadosnovos = dados.filter(item=>item.email==email);
-        if(dadosnovos.length>0){
-            return true
-        }
-            return false;
-    }
-
-    
-
-    function salvardados(e){
-
-        e.preventDefault();
-        let i=0;
-        let errorMsg=[];
-        if(nome.length<3){
-            errorMsg.push("Campo nome tem menos de 3 caracteres\n");
-            i++;
-        }
-        if(responsavel.length<3){
-            errorMsg.push("Campo responsável tem menos de 3 caracteres\n");
-            i++;
-        }
-        if(contato.length<9){
-            errorMsg.push("Campo contato tem menos de 9 caracteres\n");
-            i++;
-        }
-
-        if(i==0){
-            
-            setMsg("");
-            let lista = JSON.parse(localStorage.getItem("cad-fornecedor")||"[]");
-            lista.push(
-                {
-                    id:Date.now().toString(36)+Math.floor(Math.pow(10,12)+Math.random()*9*Math.pow(10,12)).toString(36),
-                    nome:nome,
-                    responsavel:responsavel,
-                    contato:contato
-                }
-            )
-            localStorage.setItem("cad-fornecedor",JSON.stringify(lista));
-            alert("dados salvos com sucesso!");
-            navigate("/listafornecedor");
-        }
-
-         else{
-            setMsg(errorMsg);
-        }
-        
-    }
- return(
-<div className="dashboard-container">
+ return (
+  <div className="dashboard-container">
     <Menu />
     <div className="principal">
-            <Head title="Cadastro de Fornecedor" />
-            {/* <section className="form-cadastro">  */}
-                {/* <form onSubmit={salvardados}> */}
-                {/* <label>id</label>
-                    // <input placeholder="id"
-                    // value={id}
-                    // onChange={e=>setId(e.target.value)}
-                    // /> */}
-                    // {/* <label>nome</label> */}
-                    // {/* <input placeholder="nome" */}
-                    {/* // type="text" */}
-                    {/* // value={nome} */}
-                    {/* // onChange={e=>setNome(e.target.value)} */}
-                    {/* // /> */}
-                    {/* <label>responsavel</label> */}
-                    {/* <input placeholder="responsavel" */}
-                    {/* // type="text" */}
-                    {/* // value={responsavel} */}
-                    {/* // onChange={e=>setResponsavel(e.target.value)} */}
-                    {/* // /> */}
-                    {/* <label>Contato</label> */}
-                    {/* <input placeholder="contato" */}
-                    {/* // type="text" */}
-                    {/* // value={contato} */}
-                    {/* // onChange={e=>setContato(e.target.value)} */}
-                    {/* // /> */}
-                    {/* <button className="button_save" type="submit" > */}
-                        {/* Salvar */}
-                    {/* </button> */}
-                    {/* <pre>{msg}</pre> */}
-                {/* </form> */}
-            {/* </section> */}
+      <Head title="Cadastro de Fornecedor" />
 
-            <div class="login-box2">
- 
- <form onSubmit={salvardados}>
-   <div class="user-box2">
-     <input type="text"
-     value={nome}
-     onChange={e=>setNome(e.target.value)}/>
-     <label>nome</label>
-   </div>
-   <div class="user-box2">
-     <input  type="text"
-       value={responsavel}
-       onChange={e=>setResponsavel(e.target.value)}/>
-     <label>Responsavel</label>
-   </div>
-   
-   <div class="user-box2">
-  <input  type="text"
-  value={contato}
-  onChange={e=>setContato(e.target.value)}/>
-  <label>Contato</label>
- </div>
-   
- <button className="button_save" type="submit">
-      Salvar
-  </button>    
-    
-  </form>
- </div>
+      <div class="login-box2">
+        <form onSubmit={salvarDados}>
+          <div class="user-box2">
+            <input
+              type="text"
+              value={cnpj}
+              onChange={(e) => setCnpj(e.target.value)}
+            />
+            <label>CNPJ</label>
+          </div>
+          <div class="user-box2">
+            <input
+              type="text"
+              value={razaoSocial}
+              onChange={(e) => setRazaoSocial(e.target.value)}
+            />
+            <label>Razão Social</label>
+          </div>
+          <div class="user-box2">
+            <input
+              type="text"
+              value={responsavel}
+              onChange={(e) => setResponsavel(e.target.value)}
+            />
+            <label>Responsavel</label>
+          </div>
+          <div class="user-box2">
+            <input
+              type="text"
+              value={endereco}
+              onChange={(e) => setEndereco(e.target.value)}
+            />
+            <label>Endereço</label>
+          </div>
+          <div class="user-box2">
+            <input
+              type="text"
+              value={cidade}
+              onChange={(e) => setCidade(e.target.value)}
+            />
+            <label>cidade</label>
+          </div>
+          <div class="user-box2">
+            <input
+             type="text"
+              value={estado}
+             onChange={(e) => setEstado(e.target.value)}
+             />
+             <label>Estado</label>
+             <div class="user-box2">
+            <input
+             type="text"
+            value={email}
+             onChange={(e) => setEmail(e.target.value)}
+             />
+            <label>Email</label>
+            </div>
+<           div class="user-box2">
+             <input
+               type="text"
+             value={telefone}
+             onChange={(e) => setTelefone(e.target.value)}
+             />
+            <label>Telefone</label>
+            </div>
+            <div class="user-box2">
+            <input
+            type="text"
+            value={ativo}
+            onChange={(e) => setAtivo(e.target.value)}
+            />
+            <label>cidade</label>
+            </div>
+            </div>
+
+          <button className="button_save" type="submit">
+            Salvar
+          </button>
+          <pre>{msg}</pre>
+        </form>
+      </div>
     </div>
-    
-</div>
-
- )   
- }
+  </div>
+);
+}

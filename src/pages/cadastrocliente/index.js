@@ -8,8 +8,6 @@ export default function CadastroCliente(){
     const [nome,setNome] = useState("");
     const [cpf,setCpf] = useState("");
     const [email,setEmail] = useState("");
-    const [senha,setSenha] = useState("");
-    const [confirmar,setConfirmar] = useState("");
     const [contato,setContato] = useState("");
     const [veiculo,setVeiculo] = useState("");
     const [placa,setPlaca] = useState("");
@@ -51,7 +49,6 @@ export default function CadastroCliente(){
     nome:nome,
     cpf:cpf,
     email:email,
-    senha:senha,
     contato:contato,
     veiculo:veiculo,
     placa:placa
@@ -78,17 +75,8 @@ export default function CadastroCliente(){
        else if(!validaremail()){
             errorMsg.push('Por favor coloque um email valido!\n'); 
             i++;   
-        }
-
-        if(senha.length<3){
-            errorMsg.push("Campo senha tem menos de 3 caracteres\n");
-            i++;
-        }
-        else if(senha!==confirmar){
-            errorMsg.push("Senha e confirmação não conferem\n");
-            i++;
-        }
-
+       }
+                            
         if(i==0){
             
            
@@ -186,21 +174,7 @@ export default function CadastroCliente(){
   onChange={e=>setContato(e.target.value)}/>
   <label>Contato</label>
  </div>
-   
    <div class="user-box2">
-  <input  type="password"
-  value={senha}
-  onChange={e=>setSenha(e.target.value)}/>
-  <label>senha</label>
-</div>
-   
-<div class="user-box2">
- <input  type="password"
-  value={confirmar}
-  onChange={e=>setConfirmar(e.target.value)}/>
- <label>confirmar senha </label>
- </div>
- <div class="user-box2">
  <input  type="text"
   value={veiculo}
   onChange={e=>setVeiculo(e.target.value)}/>

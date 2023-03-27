@@ -10,44 +10,91 @@ export default function Listacliente(){
     const navigate=useNavigate();
       const [dados,setDados]=useState([]);
       const [row,setRow] = useState(0);
-      useEffect(()=>{
-                  mostrardados();
-      },[])
+      const [page, setPage] = useState(1);
+      const [perPage, setPerPage] = useState(10); // Definindo o valor padrão como 10
+          useEffect(() => {
+                                   mostrardados(page);
+                           }, [page, perPage]);
   
       function editar(id){
           navigate(`/editarcliente/${id}`)
           
       }
       
-      function excluir(id) {
-          confirmAlert({
-            title: 'Atenção',
-            message: 'Desejar realmente excluir cadastro?',
-            buttons: [
-              {
-                label: 'Não',
-                onClick: () => alert('Click Não')
-              },
-              {
-                label: 'Sim',
-                onClick: () => {
-                  let dadosnovos = [];
-                  dadosnovos = dados.filter(item=>item.id!=id);
-                  setDados(dadosnovos);
-                  localStorage.setItem('cad-cliente',JSON.stringify(dadosnovos));
-                  setRow(dadosnovos.length);
+      async function excluir(i, nome) {
+    
+        confirmAlert({
+          title: 'Excluir cliente',
+          message: `Deseja realmente excluir o cadastro de ${nome}?`,
+          buttons: [
+            {
+
+              label: 'Sim',
+              onClick: async () => {
+                try {
+                  const response = await fetch(`http://10.1.2.106:5000/cliente`, {
+                    method: "DELETE",
+                    body: JSON.stringify({id: i}),
+                    headers: {
+                      'Content-Type': 'application/json; charset=utf-8'
+                    }
+                  });
+          
+                  if (response.ok) {
+                    alert("Dados deletados com sucesso!");
+                    window.location.href = "/listacliente";
+                  } else {
+                    const errorResponse = await response.json();
+                    alert(`Erro ao excluir usuário: ${errorResponse.message}`);
+                  }
+                } catch (error) {
+                  console.log(error);
+                  alert("Erro ao excluir usuário. Por favor, tente novamente mais tarde.");
                 }
+
               }
-            ]
-          });
-        };
-  
-  
-      function mostrardados(){
-          let lista =JSON.parse(localStorage.getItem("cad-cliente")||"[]");
-          setDados(lista);
-          setRow(lista.length);
+            },
+
+            {
+              label: 'Não',
+              onClick: () => alert('Clique em Não')
+            }
+          ]
+        });
       }
+
+
+
+      
+
+
+  
+        async function mostrardados(page) {
+          try {
+            const response = await fetch(`http://10.1.2.106:5000/cliente?page=${page}&perPage=${perPage}`, {
+              headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+              }
+            });
+            if (response.ok) {
+
+              const data = await response.json();
+              setDados(data.cliente);
+              setRow(data.totalRows);
+              console.log("Status" + response.status);
+              console.log(data.mensagem);
+            } else {
+              console.log("houve um erro na requisição")
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }
+        function handlePageChange(newPage) {
+          setPage(newPage);
+        }
+
+
   
    return(
   <div className="dashboard-container">
@@ -76,16 +123,16 @@ export default function Listacliente(){
                       <th></th>
                   </tr>
                   {
-                      dados.map((usu)=>{
+                      dados.map((cli)=>{
                           return(
-                              <tr key={usu.toString()}>
-                                  <td>{usu.id}</td>
-                                  <td>{usu.nome}</td>
-                                  <td>{usu.cpf}</td>
-                                  <td>{usu.email}</td>
-                                  <td>{usu.contato}</td>
-                                  <td>{usu.veiculo}</td>
-                                  <td>{usu.placa}</td>
+                              <tr key={cli.toString()}>
+                                  <td>{cli.id_cliente}</td>
+                                  <td>{cli.nome}</td>
+                                  <td>{cli.cpf}</td>
+                                  <td>{cli.email}</td>
+                                  <td>{cli.contato}</td>
+                                  <td>{cli.veiculo}</td>
+                                  <td>{cli.placa}</td>
 
                                   <td>
                                     
@@ -93,7 +140,7 @@ export default function Listacliente(){
                                       color="blue"
                                       size={18}
                                       cursor="pointer"
-                                      onClick={(e)=>editar(usu.id)}
+                                      onClick={(e)=>editar(cli.id_cliente)}
                                       />
                                   </td>
                                   <td>
@@ -101,7 +148,7 @@ export default function Listacliente(){
                                       color="red"
                                       size={18}
                                       cursor="pointer"
-                                      onClick={(e)=>excluir(usu.id)}
+                                      onClick={(e)=>excluir(cli.id_cliente)}
                                       />
                                   </td>
   

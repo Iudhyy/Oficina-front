@@ -18,7 +18,10 @@ export default function EditarFuncionario(){
     const [msg,setMsg] = useState("");
     // const [dados,setDados]=useState([]);
     // 
-    
+    const MIN_LOGIN_LENGTH = 3;
+    const MIN_NAME_LENGTH = 3;
+    const MIN_EMAIL_LENGTH = 6;
+    const MIN_PASSWORD_LENGTH = 3;
     const _data = {
 
         id_usuario,
@@ -29,18 +32,7 @@ export default function EditarFuncionario(){
 
     }
 
-    const usuario = {
-        id:id,
-        login:login,
-        nome:nome,
-        email:email,
-        senha:senha,
-        perfil:perfil,
-        setor:setor,
-        ativo:ativo
-    }
-
-
+ 
     useEffect(()=>{
         mostrardados();
     },[])
@@ -75,114 +67,118 @@ export default function EditarFuncionario(){
         // }
             // return false;
     // }
+    async function salvardados(e) {
 
+      e.preventDefault();
+      const usuario = {
+        id: id,
+        login: login,
+        nome: nome,
+        email: email,
+        senha: senha,
+        perfil: perfil,
+        setor: setor,
+        ativo: ativo
+      }
+      console.table(usuario)
+
+      const errorMsg = [];
     
-
-    async function salvardados(e){
-
-
-  
-
-         e.preventDefault();
-        let i=0;
-        let errorMsg=[];
-        if(login.length<3){
-            errorMsg.push("Campo login tem menos de 3 caracteres\n");
-            i++;
+      if (usuario.login.length < MIN_LOGIN_LENGTH) {
+        errorMsg.push("Campo login tem menos de 3 caracteres\n");
+      }
+    
+      if (usuario.nome.length < MIN_NAME_LENGTH) {
+        errorMsg.push("Campo nome tem menos de 3 caracteres\n");
+      }
+    
+      if (usuario.email.length < MIN_EMAIL_LENGTH || !usuario.email.includes("@")) {
+        errorMsg.push("Campo email inválido\n");
+      }
+    
+      if (usuario.senha.length < MIN_PASSWORD_LENGTH) {
+        errorMsg.push("Campo senha tem menos de 4 caracteres\n");
+      }
+    
+      if (errorMsg.length > 0) {
+        alert("Preencha todos os campos corretamente!");
+        console.log(msg)
+        setMsg(errorMsg);
+        return;
+      }
+    
+      try {
+        const response = await fetch(`http://10.1.2.106:5000/usuario`, {
+          method: "PATCH",
+          body: JSON.stringify(usuario),
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+          }
+        });
+    
+        if (response.ok) {
+          alert("Dados salvos com sucesso!");
+          window.location.href = "/listafuncionario";
+        } else {
+          const errorResponse = await response.json();
+          alert(`Erro ao salvar dados: ${errorResponse.message}`);
         }
-       
-       
-       
-       
-        if(nome.length<3){
-            errorMsg.push("Campo nome tem menos de 3 caracteres\n");
-            i++;
-        }
-        if(senha.length<4){
-            errorMsg.push("Campo email tem menos de 4 caracteres\n");
-            i++;
-        }
-
-        if(i==0){
-            
-                try {
-                  const response = await fetch(`http://10.1.2.106:5000/usuario`, {
-                    method: "PATCH",
-                    body: JSON.stringify(usuario),
-                    headers: {
-                      'Content-Type': 'application/json; charset=utf-8'
-                    }
-                  });
-                  if (response.ok) {
-                    alert("dados salvos com sucesso!");
-                
-                    window.location.href="/listafuncionario"
-
-                  } else {
-                    console.log("E-mail ou senha inválidos")
-                   
-                  }
-                } catch (error) {
-                  console.log(error);
-                }
-                            
-           
-        }
-
-         else{
-             alert("Preencha todos os campos!!!")
-            setMsg(errorMsg);
-        }
-        // 
+      } catch (error) {
+        console.log(error);
+        alert("Erro ao salvar dados. Por favor, tente novamente mais tarde.");
+      }
     }
- return(
-<div className="dashboard-container">
-    <Menu />
-    <div className="principal">
-            <Head title="Cadastro de Produto" />
-
-            <div class="login-box2">
- 
- <form onSubmit={salvardados}>
-
- <div class="user-box2">
-   <input type="text"
-   value={login}
-   onChange={e=>setLogin(e.target.value)}/>
-   <label>Login</label>
- </div>
-
-   <div class="user-box2">
-     <input type="text"
-     value={nome}
-     onChange={e=>setNome(e.target.value)}/>
-     <label>Nome</label>
-   </div>
-   <div class="user-box2">
-     <input  type="text"
-       value={email}
-       onChange={e=>setEmail(e.target.value)}/>
-     <label>Email</label>
-   </div>
-   
-   <div class="user-box2">
-  <input  type="password"
-  value={senha}
-  onChange={e=>setSenha(e.target.value)}/>
-  <label>Senha</label>
- </div>
-
-   
- <button className="button_save" type="submit">
-      Salvar
-  </button>    
     
-  </form>
- </div>
 
-    </div>
-    
-</div>
+    return(
+                  <div className="dashboard-container">
+                      <Menu />
+                      <div className="principal">
+                              <Head title="Cadastro de Produto" />
 
- )   
+                              <div class="login-box2">
+
+                   <form onSubmit={salvardados}>
+
+                   <div class="user-box2">
+                     <input type="text"
+                     value={login}
+                     onChange={e=>setLogin(e.target.value)}/>
+                     <label>Login</label>
+                   </div>
+
+                     <div class="user-box2">
+                       <input type="text"
+                       value={nome}
+                       onChange={e=>setNome(e.target.value)}/>
+                       <label>Nome</label>
+                     </div>
+                     <div class="user-box2">
+                       <input  type="text"
+                         value={email}
+                         onChange={e=>setEmail(e.target.value)}/>
+                       <label>Email</label>
+                     </div>
+
+                     <div class="user-box2">
+                    <input  type="password"
+                    value={senha}
+                    onChange={e=>setSenha(e.target.value)}/>
+                    <label>Senha</label>
+                   </div>
+
+
+                   <button className="button_save" type="submit">
+                        Salvar
+                    </button>    
+
+                    </form>
+                   </div>
+
+                      </div>
+
+                  </div>
+
+ )  
+
  }

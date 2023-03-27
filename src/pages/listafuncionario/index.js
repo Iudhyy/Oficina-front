@@ -24,29 +24,46 @@ export default function ListaUsuario(){
         navigate(`/editarfuncionario/${id}`)
         
     }
+    async function excluir(i, nome) {
     
-    function excluir(i,nome) {
-       
-        confirmAlert({
-            title: 'Excluir usuario',
-            message: `Deseja realmente excluir o cadastro de ${nome}`,
-            buttons: [
-              {
-                label: 'Sim',
-                onClick: () => {
-                    api.delete(`/usuario/${i}`)
-                    .then(res => {});
-                    mostrardados();
-                    alert("Dados Deletados com Sucesso!");
+      confirmAlert({
+        title: 'Excluir usuário',
+        message: `Deseja realmente excluir o cadastro de ${nome}?`,
+        buttons: [
+          {
+            label: 'Sim',
+            onClick: async () => {
+              try {
+                const response = await fetch(`http://10.1.2.106:5000/usuario`, {
+                  method: "DELETE",
+                  body: JSON.stringify({id: i}),
+                  headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                  }
+                });
+    
+                if (response.ok) {
+                  alert("Dados deletados com sucesso!");
+                  window.location.href = "/listafuncionario";
+                } else {
+                  const errorResponse = await response.json();
+                  alert(`Erro ao excluir usuário: ${errorResponse.message}`);
                 }
-              },
-              {
-                label: 'Não',
-                onClick: () => alert('Click No')
+              } catch (error) {
+                console.log(error);
+                alert("Erro ao excluir usuário. Por favor, tente novamente mais tarde.");
               }
-            ]
-          })
-      };
+            }
+          },
+          {
+            label: 'Não',
+            onClick: () => alert('Clique em Não')
+          }
+        ]
+      });
+    }
+    
+      
       async function mostrardados(page) {
         try {
           const response = await fetch(`http://10.1.2.106:5000/usuario?page=${page}&perPage=${perPage}`, {
@@ -76,7 +93,7 @@ return(
     <Menu />
 
     <div className="principal">
-    <Head title="Lista de Produto" />
+    <Head title="Lista de Funcionários" />
       <div className="button_new">
        <a href="/cadastrofuncionario">
        <FiFilePlus
@@ -125,7 +142,7 @@ return(
                                     color="red"
                                     size={18}
                                     cursor="pointer"
-                                    onClick={(e)=>excluir(usu.id_usuario)}
+                                    onClick={(e)=>excluir(usu.id_usuario,usu.nome)}
                                     />
                                 </td>
 
