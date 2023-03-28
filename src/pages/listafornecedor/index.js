@@ -17,7 +17,7 @@ export default function ListaFornecedor(){
   
 
     useEffect(() => {
-        mostrardados(page);
+        mostrardados(page,perPage);
       }, [page, perPage]);
 
     function editar(id){
@@ -34,7 +34,7 @@ export default function ListaFornecedor(){
               {
                 label: 'Sim',
                 onClick: () => {
-                    api.delete(`/empresa/${i}`)
+                    api.delete(`/fornecedor/${i}`)
                     .then(res => {});
                     mostrardados();
                     alert("Dados Deletados com Sucesso!");
@@ -47,21 +47,45 @@ export default function ListaFornecedor(){
             ]
           })
       };
-      async function mostrardados(page) {
+      // async function mostrardados(page) {
+        // try {
+          // const response = await fetch(`http://10.1.2.106:5000/fornecedor?page=${page}&perPage=${perPage}`, {
+            // headers: {
+              // 'Content-Type': 'application/json; charset=utf-8'
+            // }
+          // });
+          // if (response.ok) {
+            // const data = await response.json();
+            // setDados(data.fornecedor);
+            // setRow(data.totalRows);
+            // console.log("Status" + response.status);
+            // console.log(data.mensagem);
+          // } else {
+            // console.log("houve um erro na requisição")
+          // }
+        // } catch (error) {
+          // console.log(error);
+        // }
+      // }
+      function handlePageChange(newPage) {
+         setPage(newPage);
+       }
+      async function mostrardados(page, perPage) {
         try {
-          const response = await fetch(`http://10.1.2.106:5000/empresa?page=${page}&perPage=${perPage}`, {
+          const response = await fetch(`http://10.1.2.106:5000/fornecedor?page=${page}&perPage=${perPage}`, {
             headers: {
               'Content-Type': 'application/json; charset=utf-8'
             }
           });
+      
           if (response.ok) {
             const data = await response.json();
-            setDados(data.empresa);
+            setDados(data.fornecedor);
             setRow(data.totalRows);
             console.log("Status" + response.status);
             console.log(data.mensagem);
           } else {
-            console.log("houve um erro na requisição")
+            console.log("houve um erro na requisição");
           }
         } catch (error) {
           console.log(error);
@@ -70,6 +94,7 @@ export default function ListaFornecedor(){
       function handlePageChange(newPage) {
         setPage(newPage);
       }
+      
 
 return(
 <div className="dashboard-container">
@@ -98,14 +123,14 @@ return(
             </tr>
            
                 {
-                    dados.map((emp)=>{
+                    dados.map((fnc)=>{
                         return(
-                            <tr key={emp.toString()}>
-                               <td>{emp.id_fornecedor}</td>
-                                <td>{emp.cnpj}</td>
-                                <td>{emp.razao_social}</td>
-                                <td>{emp.telefone}</td>
-                                <td>{emp.ativo}</td>
+                            <tr key={fnc.toString()}>
+                               <td>{fnc.id_fornecedor}</td>
+                                <td>{fnc.cnpj}</td>
+                                <td>{fnc.razao_social}</td>
+                                <td>{fnc.telefone}</td>
+                                <td>{fnc.ativo}</td>
                               
 
                                 <td>
@@ -114,7 +139,7 @@ return(
                                     color="blue"
                                     size={18}
                                     cursor="pointer"
-                                    onClick={(e)=>editar(emp.id_fornecedor)}
+                                    onClick={(e)=>editar(fnc.id_fornecedor)}
                                     />
                                 </td>
                                 <td>
@@ -122,7 +147,7 @@ return(
                                     color="red"
                                     size={18}
                                     cursor="pointer"
-                                    onClick={(e)=>excluir(emp.id_fornecedor)}
+                                    onClick={(e)=>excluir(fnc.id_fornecedor)}
                                     />
                                 </td>
 

@@ -7,13 +7,8 @@ export default function CadastroFornecedor() {
   const navigate = useNavigate();
   const [cnpj, setCnpj] = useState("");
   const [razaoSocial, setRazaoSocial] = useState("");
-  const [responsavel, setResponsavel] = useState("");
-  const [endereco, setEndereco] = useState("");
-  const [cidade, setCidade] = useState("");
-  const [estado, setEstado] = useState("");
-  const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
-  const [ativo, setAtivo] = useState(false);
+
   const [msg, setMsg] = useState("");
 
   async function salvarDados(e) {
@@ -22,28 +17,24 @@ export default function CadastroFornecedor() {
     const fornecedor = {
       cnpj: cnpj,
       razao_social: razaoSocial,
-      responsavel: responsavel,
-      endereco: endereco,
-      cidade: cidade,
-      estado: estado,
-      email: email,
-      telefone: telefone,
-      ativo: ativo,
+      telefone: telefone
+      
     };
 
     // Validar os campos antes de enviar para o backend
 
     try {
-      const response = await fetch(`http://seuservidor.com/fornecedor`, {
+      const response = await fetch(`http://10.1.2.106:5000/fornecedor`, {
         method: "POST",
         body: JSON.stringify(fornecedor),
         headers: {
           "Content-Type": "application/json; charset=utf-8",
         },
       });
+      console.log(response)
       if (response.ok) {
         alert("Dados salvos com sucesso!");
-        navigate("/lista-fornecedores");
+        navigate("/listafornecedor");
       } else {
         console.log("Dados inválidos!!!");
       }
@@ -51,13 +42,11 @@ export default function CadastroFornecedor() {
       console.log(error);
     }
   }
-
- return (
+return (
   <div className="dashboard-container">
     <Menu />
     <div className="principal">
       <Head title="Cadastro de Fornecedor" />
-
       <div class="login-box2">
         <form onSubmit={salvarDados}>
           <div class="user-box2">
@@ -79,67 +68,16 @@ export default function CadastroFornecedor() {
           <div class="user-box2">
             <input
               type="text"
-              value={responsavel}
-              onChange={(e) => setResponsavel(e.target.value)}
+              value={telefone}
+              onChange={(e) => setTelefone(e.target.value)}
             />
-            <label>Responsavel</label>
-          </div>
-          <div class="user-box2">
-            <input
-              type="text"
-              value={endereco}
-              onChange={(e) => setEndereco(e.target.value)}
-            />
-            <label>Endereço</label>
-          </div>
-          <div class="user-box2">
-            <input
-              type="text"
-              value={cidade}
-              onChange={(e) => setCidade(e.target.value)}
-            />
-            <label>cidade</label>
-          </div>
-          <div class="user-box2">
-            <input
-             type="text"
-              value={estado}
-             onChange={(e) => setEstado(e.target.value)}
-             />
-             <label>Estado</label>
-             <div class="user-box2">
-            <input
-             type="text"
-            value={email}
-             onChange={(e) => setEmail(e.target.value)}
-             />
-            <label>Email</label>
-            </div>
-<           div class="user-box2">
-             <input
-               type="text"
-             value={telefone}
-             onChange={(e) => setTelefone(e.target.value)}
-             />
             <label>Telefone</label>
-            </div>
-            <div class="user-box2">
-            <input
-            type="text"
-            value={ativo}
-            onChange={(e) => setAtivo(e.target.value)}
-            />
-            <label>cidade</label>
-            </div>
-            </div>
-
+          </div>
           <button className="button_save" type="submit">
             Salvar
           </button>
-          <pre>{msg}</pre>
         </form>
       </div>
     </div>
   </div>
-);
-}
+)}
