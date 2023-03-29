@@ -18,7 +18,7 @@ export default function EditarProduto(){
     
     
     const _data = {
-
+        id,
         codigo,
         nome_produto,
         qtd_minima,
@@ -47,6 +47,7 @@ export default function EditarProduto(){
             });
             if (response.ok) {
               const resposta = await response.json();
+              setCodigo(resposta.produto[0].codigo);
               setNome_produto(resposta.produto[0].nome_produto);
               setCategoria(resposta.produto[0].categoria);
               setQtd_minima(resposta.produto[0].qtd_minima);
@@ -73,47 +74,28 @@ export default function EditarProduto(){
 
     async function salvardados(e){
 
-
-  
-
          e.preventDefault();
         let i=0;
         let errorMsg=[];
-        if(nome_produto.length<3){
-            errorMsg.push("Campo nome tem menos de 3 caracteres\n");
-            i++;
-        }
-       
-       
-       
-       
-        if(unidade.length<1){
-            errorMsg.push("Campo contato tem menos de 9 caracteres\n");
-            i++;
-        }
-        if(categoria.length<1){
-            errorMsg.push("Campo contato tem menos de 9 caracteres\n");
-            i++;
-        }
 
         if(i==0){
             
                 try {
-                  const response = await fetch(`http://10.1.2.106:5000/produto/${id}`, {
-                    method: "patch",
+                  const response = await fetch(`http://10.1.2.106:5000/produto`, {
+                    method: "PATCH",
+                    body: JSON.stringify(_data),
                     headers: {
                       'Content-Type': 'application/json; charset=utf-8'
                     }
                   });
                   if (response.ok) {
                     alert("dados salvos com sucesso!");
-                
+                                
                     window.location.href="/listaproduto"
-
                   } else {
                     console.log("E-mail ou senha inválidos")
                    
-                  }
+                  }               
                 } catch (error) {
                   console.log(error);
                 }
@@ -136,6 +118,12 @@ export default function EditarProduto(){
             <div class="login-box2">
  
  <form onSubmit={salvardados}>
+ <div class="user-box2">
+    <input type="text"
+    value={codigo}
+    onChange={e=>setCodigo(e.target.value)}/>
+    <label>Código</label>
+  </div>
    <div class="user-box2">
      <input type="text"
      value={nome_produto}

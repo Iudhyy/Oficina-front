@@ -25,7 +25,7 @@ export default function ListaSetor(){
         
     }
     
-    function excluir(i,nome) {
+    function excluir(id,nome) {
        
         confirmAlert({
             title: 'Excluir setor',
@@ -33,11 +33,26 @@ export default function ListaSetor(){
             buttons: [
               {
                 label: 'Sim',
-                onClick: () => {
-                    api.delete(`/setor/${i}`)
-                    .then(res => {});
-                    mostrardados();
-                    alert("Dados Deletados com Sucesso!");
+                onClick: async () => {
+                  try {
+                    const response = await fetch(`http://10.1.2.106:5000/setor/${id}`, {
+                      method: "DELETE",
+                      
+                      headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                      }
+                    });
+                    if (response.ok) {
+                      const resposta = await response.json();
+                      alert("DADOS DELETADOS COM SUCESSO");
+                      mostrardados(page,perPage);                                           
+                    }                                 
+                  } catch (error) {
+                    console.log(error);
+                  }      
+                   
+                   
+                   
                 }
               },
               {

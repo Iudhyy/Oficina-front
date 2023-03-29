@@ -12,23 +12,7 @@ export default function CadastroPedido(){
     const [data_pedido,setDataPedido] = useState("");
     const [obs,setObs] = useState("");
     const [flag_baixa,setFlag_Baixa] = useState("");
-    const [msg,setMsg] = useState("");
-
-    
-    
-
-    function validarEmail(){
-        var re = /\S+@\S+\.\S+/;
-        return re.test(email);
-       
-    
-    }
-
-                      
-
-
-    
-
+    const [msg,setMsg] = useState("");                   
    async function salvardados(e){
      
         e.preventDefault();
@@ -40,8 +24,8 @@ export default function CadastroPedido(){
         if(i==0){
            
             const pedido = {
+              id_usuario:id_usuario,
                 quantidade_pedida:quantidade_pedida,
-                id_usuario:id_usuario,
                 cod_produto:cod_produto,
                 data_pedido:data_pedido,
                 obs:obs,
@@ -94,17 +78,17 @@ export default function CadastroPedido(){
             <div class="login-box2">
  
  <form onSubmit={salvardados}>
-   <div class="user-box2">
-     <input type="text"
-     value={quantidade_pedida}
-     onChange={e=>setQuantidade_Pedida(e.target.value)}/>
-     <label>Quantidade Pedida</label>
-   </div>
      <div class="user-box2">
              <input type="text"
              value={id_usuario}
              onChange={e=>setId_Usuario(e.target.value)}/>
              <label>ID Usuario</label>
+        </div>
+        <div class="user-box2">
+           <input type="text"
+           value={quantidade_pedida}
+           onChange={e=>setQuantidade_Pedida(e.target.value)}/>
+           <label>Quantidade Pedida</label>
         </div>
    <div class="user-box2">
      <input  type="text"

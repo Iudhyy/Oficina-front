@@ -73,7 +73,7 @@ export default function CadastroProduto(){
         }
         if(categoria.length<1){
             errorMsg.push("Campo contato tem menos de 9 caracteres\n");
-            i++;
+            i++; 
         }
 
         if(i==0){

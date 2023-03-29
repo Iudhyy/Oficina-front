@@ -25,7 +25,7 @@ export default function ListaFornecedor(){
         
     }
     
-    function excluir(i,nome) {
+  async function excluir(id,nome) {
        
         confirmAlert({
             title: 'Excluir fornecedor',
@@ -33,11 +33,23 @@ export default function ListaFornecedor(){
             buttons: [
               {
                 label: 'Sim',
-                onClick: () => {
-                    api.delete(`/fornecedor/${i}`)
-                    .then(res => {});
-                    mostrardados();
-                    alert("Dados Deletados com Sucesso!");
+                onClick: async () => {
+                  try {
+                    const response = await fetch(`http://10.1.2.106:5000/fornecedor/${id}`, {
+                      method: "DELETE",
+                      
+                      headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                      }
+                    });
+                    if (response.ok) {
+                      const resposta = await response.json();
+                      alert("DADOS DELETADOS COM SUCESSO");
+                      mostrardados(page,perPage);                                           
+                    }                                 
+                  } catch (error) {
+                    console.log(error);
+                  }      
                 }
               },
               {
@@ -117,7 +129,7 @@ return(
                <th>CNPJ</th>
                <th>Razão Social</th>
                <th>telefone</th>
-               <th>ativo</th>
+               
                <th></th>
                <th></th>
             </tr>
@@ -130,7 +142,7 @@ return(
                                 <td>{fnc.cnpj}</td>
                                 <td>{fnc.razao_social}</td>
                                 <td>{fnc.telefone}</td>
-                                <td>{fnc.ativo}</td>
+                                
                               
 
                                 <td>

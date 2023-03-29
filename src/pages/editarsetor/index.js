@@ -14,8 +14,8 @@ export default function EditarSetor(){
 
 
     const setor = {
-        id:id,
-        nome_setor:nome_setor      
+        id,
+        nome_setor      
     }
 
 
@@ -58,21 +58,13 @@ export default function EditarSetor(){
 
     async function salvardados(e){
 
-
-  
-
          e.preventDefault();
         let i=0;
         let errorMsg=[];                    
         if(nome_setor.length<3){
             errorMsg.push("Campo nome tem menos de 3 caracteres\n");
             i++;
-        }
-      
-      
-      
-      
-
+        }   
         if(i==0){
             
                 try {
@@ -94,9 +86,7 @@ export default function EditarSetor(){
                   }
                 } catch (error) {
                   console.log(error);
-                }
-                            
-           
+                }                     
         }
 
          else{

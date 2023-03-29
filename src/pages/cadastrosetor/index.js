@@ -6,7 +6,7 @@ import { GoArrowSmallRight } from "react-icons/go";
     
 export default function CadastroSetor(){
     const navigate = useNavigate();
-    const {id} =useParams();
+    
     const [nome_setor,setNome_Setor] = useState("");
     const [msg,setMsg] = useState("");
                        

@@ -29,7 +29,7 @@ export default function CadastroCliente(){
     let lista =JSON.parse(localStorage.getItem("cad-cliente")||"[]");
     setDados(lista);
     }
-
+    
     function verificarduplicidade(email){
         let dadosnovos = [];
         dadosnovos = dados.filter(item=>item.email==email);
@@ -53,9 +53,11 @@ export default function CadastroCliente(){
     veiculo:veiculo,
     placa:placa
 }
+
+       
         let i=0;
         let errorMsg=[];
-        if(nome.length<3){
+        /*if(nome.length<3){
             errorMsg.push("Campo nome tem menos de 3 caracteres\n");
             i++;
         }
@@ -75,7 +77,7 @@ export default function CadastroCliente(){
        else if(!validaremail()){
             errorMsg.push('Por favor coloque um email valido!\n'); 
             i++;   
-       }
+         }*/
                             
         if(i==0){
             
@@ -88,6 +90,7 @@ export default function CadastroCliente(){
                       'Content-Type': 'application/json; charset=utf-8'
                     }
                   });
+                  console.log(response);
                   if (response.ok) {
                     alert("dados salvos com sucesso!");
                 

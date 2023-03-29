@@ -25,7 +25,7 @@ export default function ListaProduto(){
         
     }
     
-    function excluir(i,nome) {
+    function excluir(id,nome) {
        
         confirmAlert({
             title: 'Excluir Produto',
@@ -33,11 +33,26 @@ export default function ListaProduto(){
             buttons: [
               {
                 label: 'Sim',
-                onClick: () => {
-                    api.delete(`/produto/${i}`)
-                    .then(res => {});
-                    mostrardados();
-                    alert("Dados Deletados com Sucesso!");
+                onClick: async () => {
+                  try {
+                    const response = await fetch(`http://10.1.2.106:5000/produto/${id}`, {
+                      method: "DELETE",
+                      
+                      headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                      }
+                    });
+                    if (response.ok) {
+                      const resposta = await response.json();
+                      alert("DADOS DELETADOS COM SUCESSO");
+                      mostrardados(page,perPage);                                           
+                    }                                 
+                  } catch (error) {
+                    console.log(error);
+                  }      
+                   
+                   
+                   
                 }
               },
               {
