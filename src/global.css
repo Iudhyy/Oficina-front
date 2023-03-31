@@ -14,7 +14,16 @@
   font-size: 30px;
 
 }
-
+.div_campos{
+display: flex;
+flex-direction: row;
+width: 100vh;
+}
+.campos{
+  margin: 5px;
+  padding: 12px 20px;
+  
+}
 .form{
     /* background-color: black; */
     height: 100vh;
@@ -34,7 +43,7 @@ input,button,textarea, select{
 }
 select{
     width: 100%;
-    border: 1px solid rgb(207, 186, 186);
+    border: 1px solid rgb(0, 0, 0);
     /* border:1px solid #dcdce6; */
     border-radius: 5px;
     margin:3px;
@@ -300,6 +309,17 @@ h1{
     box-shadow: 0 15px 25px rgba(0,0,0,.6);
     border-radius: 10px;
   }
+
+.formulario{
+  position: absolute;
+  top: 25%;
+   margin: auto;
+    transform: translate(-50%, -50%);
+    background: rgba(24, 20, 20, 0.987);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+  }
   
   .login-box2 .user-box2 {
     position: relative;
@@ -515,4 +535,23 @@ button {
   }
 }
 
+.checkboxs{
+  display: flex;
+  flex-direction: row;
+  width: 100vh;
+  
+}
+
+.checkbox{
+  /* border: solid 1px; */
+  background-color: #000;
+  width: 100%;
+  
+  
+
+}
+
+Select label{
+  color: #000;
+}
  

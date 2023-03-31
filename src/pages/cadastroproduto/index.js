@@ -25,13 +25,6 @@ export default function CadastroProduto(){
 
     }
 
-    // function validaremail(){
-        // var re = /\S+@\S+\.\S+/;
-        // return re.test(email);
-       
-    
-    // } 
-
     useEffect(()=>{
         mostrardados();
     },[])

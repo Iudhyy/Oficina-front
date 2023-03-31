@@ -13,7 +13,25 @@ export default function ListaPedido(){
     const [dados,setDados]=useState([]);
     const [row,setRow] = useState(0);
     const [page, setPage] = useState(1);
-    const [perPage, setPerPage] = useState(10); // Definindo o valor padrão como 10
+    const [perPage, setPerPage] = useState(10); // Definindo o valor padrão como 10;
+
+    function formatarData(data) {
+      // separar a string em duas partes
+      const partes = data.split('/');
+    
+      // extrair a data do primeiro elemento
+      const dataCompleta = partes[0];
+      const dataFormatada = dataCompleta.substring(0, 10);
+    
+      // formatar a data no formato brasileiro
+      const dia = dataFormatada.substring(8, 10);
+      const mes = dataFormatada.substring(5, 7);
+      const ano = dataFormatada.substring(0, 4);
+    
+      return `${dia}/${mes}/${ano}`;
+    }
+    
+    
   
 
     useEffect(() => {
@@ -34,7 +52,7 @@ export default function ListaPedido(){
               {
                 label: 'Sim',
                 onClick: () => {
-                    api.delete(`/usuario/${i}`)
+                    api.delete(`/lista/${i}`)
                     .then(res => {});
                     mostrardados();
                     alert("Dados Deletados com Sucesso!");
@@ -49,14 +67,14 @@ export default function ListaPedido(){
       };
       async function mostrardados(page) {
         try {
-          const response = await fetch(`http://10.1.2.106:5000/pedido?page=${page}&perPage=${perPage}`, {
+          const response = await fetch(`http://10.1.2.106:5000/lista?page=${page}&perPage=${perPage}`, {
             headers: {
               'Content-Type': 'application/json; charset=utf-8'
             }
           });
           if (response.ok) {
             const data = await response.json();
-            setDados(data.pedido);
+            setDados(data.lista);
             setRow(data.totalRows);
             console.log("Status" + response.status);
             console.log(data.mensagem);
@@ -89,12 +107,11 @@ return(
          <table>
             <tr>
                <th>ID</th>
-               <th>quantidade pedida</th>
-               <th>Usuario</th>
-               <th>cod produto</th>
-               <th>data pedido</th>
-               <th>obs</th>
-               <th>flag baixa</th>
+               <th>Cliente</th>
+               <th>Placa</th>
+               <th>Entrada</th>              
+               <th>os</th>
+               <th>Marca</th>
                <th></th>
                <th></th>
             </tr>
@@ -103,13 +120,14 @@ return(
                     dados.map((ped)=>{
                         return(
                             <tr key={ped.toString()}>
-                               <td>{ped.cod_pedido}</td>
-                                <td>{ped.quantidade_pedida}</td>
-                                <td>{ped.id_usuario}</td>
-                                <td>{ped.cod_produto}</td>
-                                <td>{ped.data_pedido}</td>
-                                <td>{ped.obs}</td>
-                                <td>{ped.flag_baixa}</td>
+                               <td>{ped.id}</td>
+                                <td>{ped.id_cliente}</td>
+                                <td>{ped.placa}</td>
+                                <td>{formatarData(ped.entrada)}</td>
+                                
+                                <td>{ped.os}</td>
+                                <td>{ped.marca}</td>
+                                
 
                                 <td>
                                   
@@ -117,7 +135,7 @@ return(
                                     color="blue"
                                     size={18}
                                     cursor="pointer"
-                                    onClick={(e)=>editar(ped.cod_pedido)}
+                                    onClick={(e)=>editar(ped.id)}
                                     />
                                 </td>
                                 <td>
@@ -125,7 +143,7 @@ return(
                                     color="red"
                                     size={18}
                                     cursor="pointer"
-                                    onClick={(e)=>excluir(ped.cod_pedido)}
+                                    onClick={(e)=>excluir(ped.id)}
                                     />
                                 </td>
 
